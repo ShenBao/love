@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>love</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+<div class="main-container">
+	<div class="bg">
+	<div class="slider">
+		    <ul>
+		        <li class="preload" data-source="img/bg1.jpg"></li>
+		        <li class="preload" data-source="img/bg2.jpg"></li>
+		        <li class="preload" data-source="img/bg3.jpg"></li>
+		        <li class="preload" data-source="img/bg4.jpg"></li>
+		        <li class="preload" data-source="img/bg5.jpg"></li>
+		        <li class="preload" data-source="img/bg6.jpg"></li>
+		        <li class="preload" data-source="img/bg7.jpg"></li>
+		        <li class="preload" data-source="img/bg8.jpg"></li>
+		    </ul>
+		</div>
+	</div>
+
+	<div class="tip-love preload" data-source="img/tip_love.png"></div>
+
+	<div class="content">
+		<span class="text"></span><span class="cursor"></span>	
+	</div>
+
+	<canvas id="heart" width="800" height="600"></canvas>
+
+	<canvas id="snow" width="1920" height="1080"></canvas>
+
+	<div class="title-love preload" data-source="img/title_love.png"></div>
+
+
+	<audio id="bgAudio" controls="controls">
+	  <source src="mp3/bg1.mp3" type="audio/mpeg">
+	  <embed height="100" width="100" src="mp3/bg.mp3" />
+	</audio>
+
+	<audio id="key" controls="controls">
+	  <source src="mp3/key.mp3" type="audio/mpeg">
+	  <embed height="100" width="100" src="mp3/key.mp3" />
+	</audio>
+
+	<div class="btn-left btn-container">
+		<div class="normal preload" data-source="img/btn_left.png"></div>
+		<div class="hover preload" data-source="img/btn_left_hover.png"></div>
+	</div>
+
+	<div class="btn-right btn-container">
+		<div class="normal preload" data-source="img/btn_right.png"></div>
+		<div class="hover preload" data-source="img/btn_right_hover.png"></div>
+	</div>
+</div>
+
+
+
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/TweenMax.js"></script>
+<script type="text/javascript" src="js/slider.js"></script>
+<script type="text/javascript" src="js/snow.js"></script>
+<script type="text/javascript">
+
+
+	var text = '  -scale-8我最充实的爱情世界\
+只是因为你的存在而变得格外的精彩,\
+我要给你\
+最经典的表白,————\
+“你是我最真实的存在,我要\
+深深的爱着你一万年”。-shake-playmusic-3#ff6ec7-1$1-3-drawfullheart-7-br-br\
+  爱你一万年,\
+是我对你最执着如一的追求,\
+是我因为爱你,\
+而奏响的爱情冲锋号,\
+每一天,都要深情\
+的响起。\
+拥有了你的爱,\
+给了我这一辈子最快乐\
+的爱情。$2-7-br-br\
+  我喜欢\
+静静的看着你那俊俏的笑脸,\
+我渐渐的爱上\
+你那柔情似火般的浪漫情怀,\
+我期待着\
+和你相聚时的每一分每一秒的激情\
+都能让我\
+为之动容。。。#fff-1$3-7-br-br\
+  一切的一切\
+都来自于你那美丽的经典,\
+让我深深的,\
+爱着你的爱, 有了你的\
+真心和实意,\
+也就没有必要继续伪装我的爱恋,\
+我会从从容容走进你的世界,\
+和你一起,\
+恩爱一生!#ff6ec7-1$4-7-br-br\
+  你就像\
+那灿烂的阳光,\
+照射在\
+我的胸膛之上,\
+让我的生命从此绚烂多彩,\
+我要给你,\
+一个惊人的承诺,——\
+“只在今生,\
+爱你一人”。。。$5-1#000-7-br-br\
+  多少次\
+不由自主呼喊着你的名字,\
+多少次\
+在睡梦里和你拥抱在一起,\
+多少次的拉手和别离\
+见证着\
+我们的爱情就是一个\
+伟大的象征。。。$6-1-br-br\
+  让我\
+和你一起变老,\
+等到\
+白发苍苍的那一天,\
+我们已经\
+不再年轻,却依然能够\
+拉你的手,\
+那么天底下最幸福的人\
+——只有你和我!$7-drawheart-1';
+
+	var textIndex = 0, curMp3Index = 0, keyAudio = $("#key")[0], $text = $(".text"), slider = null;
+
+	preload();
+	initEvent();
+	
+
+	function preload(){
+	    var i = 0;
+	    var $preload = $(".preload");
+	    var number = $preload.length;
+	    $preload.each(function(index, elem){
+	        var img = new Image();
+	        img.src = $(this).data("source");
+	        img.onload = function(){
+	            i++;
+	            $(elem).append(img);
+	            if (i >= number) {
+	            	main();
+	            }
+	        }
+	    })
+	}
+
+	function initEvent(){
+		$(".btn-container").on("mouseenter", function(){
+			var $this = $(this);
+			TweenMax.to($this.children(".hover"), .2, {alpha:1});
+		}).on("mouseleave", function(){
+			var $this = $(this);
+			TweenMax.to($this.children(".hover"), .2, {alpha:0});
+		})
+	}
+
+	function initAnim(){		
+		var tl = new TimelineMax();
+		tl.to(".cursor", .5, {alpha:0, repeat:-1, yoyo:true});
+
+		
+		TweenMax.set(".title-love img", {scale:4, autoAlpha:0});
+		TweenMax.set(".tip-love img", {autoAlpha:0});
+		TweenMax.to(".main-container", 2, {alpha:1});
+	}
+
+	function initSlider(){
+		slider = $(".slider").slider({
+	        // index: 2,
+	        // autoplay:true,
+	        // interval:2000,
+	        // speed:500,
+	        // easing: "easeInQuart",
+	        prevBtn:".btn-left",
+	        nextBtn:".btn-right",
+	        end:function(){
+	        	if (slider.index >= $(".slider li").length-1) {
+	        		cursorAnim();
+	        	}
+	        },
+	        start:function(){
+	        }
+	    });
+	}
+
+	function startType(text){
+		var delay = .1;
+
+		switch (text.charAt(textIndex)) {
+			case '-':
+				var str = text.substr(++textIndex);
+				// var num = str.match(/\d+/)[0];
+				// delay = Number(num);
+				// textIndex += num.length;
+				var matches = str.match(/^(\d+|shake|br|drawheart|drawfullheart|scale|playmusic)/i);
+				var data = matches[0];
+				if (/\d+/.test(data)) {
+					delay = Number(data);
+				} else if (/shake/i.test(data)) {
+					shakeAnim();
+				} else if (/br/i.test(data)) {
+					$text.append("<br>");
+				} else if (/drawheart/i.test(data)) {
+    				drawHeart(134); //画心
+				} else if (/drawfullheart/i.test(data)) {
+    				startSnow(); //全屏画心
+				} else if (/scale/i.test(data)) {
+					titleAnim(); //缩放动画
+				} else if (/playmusic/i.test(data)) {
+					playBgMp3(); //播放背景音乐
+				}
+
+				textIndex += data.length;
+				break;
+			case '$':
+				var str = text.substr(textIndex++);
+				var num = str.match(/\d+/)[0];
+				slider.to(Number(num));
+				textIndex += num.length;
+				break;
+/*			case '*':
+				$text.append("<br>");
+				textIndex++;
+				break;*/
+			case '#':
+				var str = text.substr(++textIndex);
+				var matches = str.match(/^[A-Fa-f0-9]+/);
+				if (matches) {
+					TweenMax.to(".text", 2, {color:"#"+matches[0]});
+				 	textIndex += matches[0].length;
+				}/* else {
+    				drawHeart(134); //画心
+				}*/
+				break;
+/*			case '@':
+    			startSnow(); //全屏画心
+    			textIndex++;
+				break;*/
+			case ' ':
+				$text.append("&nbsp;&nbsp;&nbsp;");
+				textIndex++;
+				break;
+			default:
+				$text.append(text.charAt(textIndex++));
+				keyAudio.play();
+		}
+
+		setTimeout(function(){
+			if (textIndex>=text.length) return;
+			startType(text);
+		}, delay*1000);
+	}
+
+
+	function playBgMp3(){
+		var mp3List = ['bg1'];
+		var prefix = "mp3/";
+		var $audio = $("#bgAudio"), $source = $audio.children("source");
+		$source.attr("src", prefix+mp3List[curMp3Index]+".mp3");
+		$audio[0].load();
+		$audio[0].play();
+		$audio[0].onended = function(){
+			curMp3Index++;
+			if (curMp3Index>=mp3List.length) curMp3Index = 0;
+			console.log(curMp3Index, mp3List.length);
+			playBgMp3();
+		}
+		/*var $audio = $("#bgAudio");
+		$audio.empty();
+		$audio.append('<source src="mp3/'+mp3List[curMp3Index]+'.mp3?'+(+new Date)+'" type="audio/mpeg"><embed height="100" width="100" src="mp3/'+mp3List[curMp3Index]+'.mp3?'+(+new Date)+'" />');
+		$audio[0].load();
+		$audio[0].play();
+		$audio[0].onended = function(){
+			curMp3Index++;
+			if (curMp3Index>=mp3List.length) curMp3Index = 0;
+			playBgMp3();
+		}*/
+	}
+
+	function drawHeart(a){
+		var c = $("#heart")[0];
+		var ctx = c.getContext("2d");
+		ctx.strokeStyle = "#ff6ec7"
+		ctx.lineCap = "round";
+		ctx.lineWidth = 10;
+		ctx.translate(400, 200);
+		ctx.rotate(Math.PI);
+
+		var pow = Math.pow, cos = Math.cos, abs = Math.abs, acos = Math.acos;
+		var a = a;
+
+		var path = {lt:[], rt:[], lb:[], rb:[]};
+		//左上弧形
+		for (var x=0; x<2; x+=0.005) {
+			var y = pow(1-pow(abs(x)-1, 2), 0.5);
+			path.lt.push({'x':x, 'y':y});
+		}
+
+		//右上
+		for (var x=0; x>-2; x-=0.005) {
+			var y = pow(1-pow(abs(x)-1, 2), 0.5);
+			path.rt.push({'x':x, 'y':y});
+		}
+
+		//左下
+		for (var x=2; x>0; x-=0.005) {
+			var y = acos(1-abs(x)) - 3;
+			path.lb.push({'x':x, 'y':y});
+		}
+
+		//右下
+		for (var x=-2; x<0; x+=0.005) {
+			var y = acos(1-abs(x)) - 3;
+			path.rb.push({'x':x, 'y':y});
+		}
+
+
+		var i = 0;
+		var target = ['lt', 'rt'];
+		var ops = [{},{}];
+		var tid = setInterval(function(){
+			if (i>path[target[0]].length-2 && target[0]=="lb") {
+				clearInterval(tid);
+				TweenMax.to("#heart", .5, {autoAlpha:.7, scale:.6});
+				TweenMax.to("#heart", .5, {scale:"+=.05", repeat:-1, yoyo:true, delay:.6});
+			};
+
+			if (i>path[target[0]].length-2) {
+				i = 0;
+				target = ['lb', 'rb'];
+				ops = [{},{}];
+			};
+			for (var j=0; j<target.length; j++) {
+				var x = path[target[j]][i].x, y = path[target[j]][i].y;
+				if (!ops[j]) {
+					ops[j].x = x, ops[j].y = y;
+				}
+				ctx.beginPath();
+				ctx.moveTo(ops[j].x*a, ops[j].y*a);
+				ctx.lineTo(x*a, y*a);
+				ctx.stroke();
+				ops[j].x = x, ops[j].y = y;
+			}
+			i++;
+		}, 1000/100);
+
+
+
+	}
+
+	function startSnow(){
+		/*var snow = new Snow("snow", 500, 20);
+        snow.startSnow();*/
+        var img = new Image();
+        img.src = "img/heart.png";
+        img.onload = function(){
+        	var snow = new Snow($("#snow")[0], img, [30, 80], 33);
+        	snow.start();
+        	TweenMax.to("#snow", 3, {autoAlpha:1, delay:3});
+        }
+	}
+
+	function titleAnim(){
+		TweenMax.to(".title-love img", 1, {scale:1, autoAlpha:1, repeat:1, yoyo:true, repeatDelay:3, ease:Circ.easeInOut});
+	}
+
+	function shakeAnim(){
+		TweenMax.to(".tip-love img", 3, {autoAlpha:1});
+		var tlLove = new TimelineMax();
+		tlLove.to(".tip-love img", .5, {rotationZ:10, transformOrigin:"20% 20%", repeat:-1, yoyo:true});
+	}
+
+	function cursorAnim(){
+		TweenMax.to(".btn-container", 1, {autoAlpha:1});
+		TweenMax.to(".btn-left img", .5, {x:-15, repeat:-1, yoyo:true});
+		TweenMax.to(".btn-right img", .5, {x:15, repeat:-1, yoyo:true});
+	}
+
+    function main(){	
+    	initAnim();
+		initSlider();
+
+		setTimeout(function(){
+			TweenMax.to(".content", .5, {alpha:1});
+			startType(text);
+		}, 1*1000);
+	}
+    
+</script>
+</body>
+</html>
