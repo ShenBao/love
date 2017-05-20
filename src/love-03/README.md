@@ -1,2 +1,4 @@
-ĞŞ¸Äindex.htmlÀïµÄÎÄ×Ö£¬ÒÔ¼°Æ¯¸¡ÓÚÊó±êÉÏµÄ"thanks for watching.
-È»ºóĞŞ¸ÄjscssÄ¿Â¼ÏÂµÄtime.js,ĞŞ¸ÄÕâÀïÃæµÚÈıĞĞµÄÊ±¼ä£¬ÒÔ¼°currentTimeStringµÄÄÚÈİ
+# README
+
+ä¿®æ”¹index.htmlé‡Œçš„æ–‡å­—ï¼Œä»¥åŠæ¼‚æµ®äºé¼ æ ‡ä¸Šçš„"thanks for watching.
+ç„¶åä¿®æ”¹jscssç›®å½•ä¸‹çš„time.js,ä¿®æ”¹è¿™é‡Œé¢ç¬¬ä¸‰è¡Œçš„æ—¶é—´ï¼Œä»¥åŠcurrentTimeStringçš„å†…å®¹
