@@ -10,7 +10,6 @@
 <p>至少可以让对方知道;</p>
 <p>在自己身边的感觉是如此的温暖;</p>
 
-
 # 2
 
 <div id="code">
@@ -41,7 +40,6 @@
     i.marry(u);<br />
     i.liveHappilyWith(u);<br />
 </div>
-
 
 # 3
 
