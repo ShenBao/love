@@ -1,34 +1,12 @@
-<?php
-if (isset($_SERVER['HTTPS']) || '443' === $_SERVER['SERVER_PORT']) {
-    $url = 'https://';
-} else {
-    $url = 'http://';
-}
-$url = $url.$_SERVER['HTTP_HOST'].rtrim(dirname($_SERVER['DOCUMENT_URI']), '\\');
-$url = rtrim($url, '/');
-?><!DOCTYPE HTML>
-<!--[if IE 6]>
-<html id="ie6" class="ie ie6 lt-ie9">
-<![endif]-->
-<!--[if IE 7]>
-<html id="ie7" class="ie ie7 lt-ie9">
-<![endif]-->
-<!--[if IE 8]>
-<html id="ie8" class="ie ie8 lt-ie9">
-<![endif]-->
-<!--[if gte IE 9]>
-<html class="ie ie9">
-<![endif]-->
-<!--[if !(IE)]><!-->
+
 <html>
-<!--<![endif]-->
 <head>
 	<meta http-equiv='Pragma' content='no-cache' />
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-	<meta name="author" content="情人节,表白程序,情人节表白程序,自动生成表白程序,自动表白程序">
-	<meta name="description" content="这是一个自动生成表白页面的程序，模版由 jianghongfei.com.cn 原创，麦葱(maicong.me)做二次开发，仅限娱乐，不得用于商业用途">
-	<title>情人节自动生成表白程序</title>
+	<meta name="author" content="表白">
+	<meta name="description" content="">
+	<title>表白</title>
 	<link rel="stylesheet" href="css/all.css">
 </head>
 <body>
