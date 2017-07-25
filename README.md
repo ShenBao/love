@@ -8,3 +8,4 @@
 - [love-06](./src/love-06)
 - [love-07](./src/love-07)
 - [loveTimeLine](./src/loveTimeLine)
+- [7xi](./src/7xi)
